@@ -1,0 +1,12 @@
+name: facts
+title: facts
+username:
+account: aapidata
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 332998
+bundleId: 1355810
+url: https://aapidata.shinyapps.io/facts/
+when: 1525445316.17293
+asMultiple: FALSE
+asStatic: FALSE

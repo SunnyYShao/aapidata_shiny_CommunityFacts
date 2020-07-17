@@ -1,0 +1,12 @@
+name: aapidata
+title: aapidata
+username:
+account: sonoshah
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 329292
+bundleId: 1336473
+url: https://sonoshah.shinyapps.io/aapidata/
+when: 1524593027.24214
+asMultiple: FALSE
+asStatic: FALSE

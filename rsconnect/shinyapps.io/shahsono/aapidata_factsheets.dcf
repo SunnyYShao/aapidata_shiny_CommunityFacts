@@ -1,0 +1,12 @@
+name: aapidata_factsheets
+title: aapidata_factsheets
+username:
+account: shahsono
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 330281
+bundleId: 1341663
+url: https://shahsono.shinyapps.io/aapidata_factsheets/
+when: 1524777438.94594
+asMultiple: FALSE
+asStatic: FALSE
