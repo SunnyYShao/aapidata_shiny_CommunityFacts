@@ -1,0 +1,321 @@
+---
+title: "Community Facts"
+subtitle: "For more information, visit aapidata.com/facts/"
+output: pdf_document
+params:
+  Group: NA
+  Topics: NA
+  dataset: NA
+  source: NA
+  state_pop: NA
+  runst: NA
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{xcolor}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+  - \usepackage[normalem]{ulem}
+  - \usepackage{fancyhdr}
+  - \renewcommand{\familydefault}{\sfdefault}
+  - \usepackage{helvet}
+  - \renewcommand{\arraystretch}{1.5}
+
+---
+
+\addtolength{\headheight}{3cm}
+\pagestyle{fancyplain}
+\fancyhf{}
+\chead{\includegraphics[height=3cm]{aapidata.png}}
+\renewcommand{\headrulewidth}{0pt}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tint)
+library(shinythemes)
+library(tidyverse)
+library(xtable)
+library(knitr)
+library(kableExtra)
+options(tinytex.verbose = TRUE)
+
+
+# test_dta <- file.path("data", "test_dta.xlsx") 
+# dta<- read_excel(test_dta)
+# source_dta <- file.path("data", "source_information.xlsx") 
+# source<- read_excel(source_dta)
+# 
+#  dta<- dta %>% 
+#      filter(dta$group %in% params$Group) %>%
+#     gather(Estimate, value, -group) 
+#   
+
+if("Total Population" %in% params$Topics){
+  totpop <-T
+}else{
+   totpop <-F
+}
+if("Population Growth" %in% params$Topics){
+  popgrowth <-T
+}else{
+   popgrowth <-F
+}
+if("Age Distribution" %in% params$Topics){
+  age <-T
+}else{
+   age <-F
+}
+if("Education" %in% params$Topics){
+  edu <- T
+}else{
+   edu <-F
+}
+if("Income and Poverty" %in% params$Topics){
+  incomepov<-T
+}else{
+   incomepov <-F
+}
+if("Political Participation" %in% params$Topics){
+  political <- T
+}else{
+   political <-F
+}
+if("Language" %in% params$Topics){
+  language<-T
+}else{
+   language <-F
+}
+if("Nativity" %in% params$Topics){
+  nativity <- T
+}else{
+   nativity <-F
+}
+if("Health Insurance" %in% params$Topics){
+  healthins<-T
+}else{
+   healthins <-F
+}
+if("Homeownership" %in% params$Topics){
+  homeownership<-T
+}else{
+   homeownership <-F
+}    
+
+```
+
+
+
+## Your Fact Sheet for: `r params$Group`
+
+
+
+`r if(totpop == T)'## Total Population'`
+
+
+```{r totalpop, echo=FALSE, message=FALSE, warning=FALSE, eval= totpop == T}
+
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Total Population") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+
+kable(dta_showme,format = "latex",align=c("l","c","c","c")) %>%
+  kable_styling( full_width = T,font_size=11) %>%
+  row_spec(0, bold=T)%>%
+   column_spec(1, width = "90em") 
+```
+
+
+`r if(popgrowth == T)'## Population Growth'`
+
+
+```{r popgrowth, echo=FALSE, message=FALSE, warning=FALSE, eval= popgrowth == T}
+ # dta<- dta %>%  mutate(value = case_when(
+ #    Estimate == "Median Income" ~ scales::dollar(value),
+ #    Estimate == "Total Population" ~ scales::comma(value),
+ #    Estimate == "BA or Higher" ~ paste(value*100,"%",sep = ""),
+ #    Estimate == "Percent No Health Insurance" ~ paste(value*100,"%",sep = ""))) %>%
+ #    spread(group, value) %>% filter(Estimate %in% params$Topics) 
+
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Population Growth") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling( full_width = T,font_size=11) %>%
+  row_spec(0, bold=T) %>%
+   column_spec(1, width = "90em")
+
+```
+
+`r if(age == T)'## Age Distribution'`
+
+
+```{r age, echo=FALSE, message=FALSE, warning=FALSE, eval= age== T}
+
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Age Distribution") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling( full_width = T,font_size=11) %>%
+  row_spec(0, bold=T) %>%
+   column_spec(1, width = "90em")
+
+```
+
+
+
+`r if(params$runst==T)'## Top States'`
+
+```{r state_pop, echo=FALSE, message=FALSE, warning=FALSE , eval= params$runst == T}
+ # dta<- dta %>%  mutate(value = case_when(
+ #    Estimate == "Median Income" ~ scales::dollar(value),
+ #    Estimate == "Total Population" ~ scales::comma(value),
+ #    Estimate == "BA or Higher" ~ paste(value*100,"%",sep = ""),
+ #    Estimate == "Percent No Health Insurance" ~ paste(value*100,"%",sep = ""))) %>%
+ #    spread(group, value) %>% filter(Estimate %in% params$Topics) 
+
+kable(params$state_pop,format = "latex", align=c("l","c","c","c")) %>% 
+  kable_styling(full_width = T,font_size=11)%>%
+  row_spec(0, bold=T) %>%
+   column_spec(1, width = "90em")
+
+```
+
+
+
+`r if(edu == T)'## Education'`
+
+```{r education, echo=FALSE, message=FALSE, warning=FALSE, eval= edu == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Education") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling(  full_width = T,font_size=11)%>%
+  row_spec(0, bold=T) %>%
+  column_spec(1, width = "30em")
+
+```
+
+`r if(incomepov == T)'## Income and Poverty'`
+
+
+```{r income_pov, echo=FALSE, message=FALSE, warning=FALSE, eval= incomepov == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Income and Poverty") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling(full_width = T,font_size=11)%>%
+  row_spec(0, bold=T) %>%
+   column_spec(1, width = "90em")
+
+```
+
+
+`r if(political == T)'## Political Participation'`
+
+```{r political, echo=FALSE, message=FALSE, warning=FALSE, eval= political == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Political Participation") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling( full_width = T,font_size=11)%>%
+  row_spec(0, bold=T)%>%
+   column_spec(1, width = "90em")
+
+```
+
+`r if(language == T)'## Language'`
+
+
+```{r language, echo=FALSE, message=FALSE, warning=FALSE, eval= language == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Language") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling( full_width = T,font_size=11)%>%
+  row_spec(0, bold=T) %>%
+   column_spec(1, width = "90em")
+
+```
+
+
+`r if(nativity == T)'## Nativity'`
+
+
+```{r nativity, echo=FALSE, message=FALSE, warning=FALSE, eval= nativity == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Nativity") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling(full_width = T,font_size=11)%>%
+  row_spec(0, bold=T)%>%
+   column_spec(1, width = "90em")
+
+```
+
+`r if(healthins == T)'## Health Insurance'`
+
+
+```{r healthins, echo=FALSE, message=FALSE, warning=FALSE, eval= healthins == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Health Insurance") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling(full_width = T,font_size=11)%>%
+  row_spec(0, bold=T)%>%
+   column_spec(1, width = "90em")
+
+```
+
+
+`r if(homeownership == T)'## Homeownership'`
+
+
+```{r homeownership, echo=FALSE, message=FALSE, warning=FALSE, eval= homeownership == T}
+dta_showme <- 
+      params$dataset %>% 
+        filter(topic_group == "Homeownership") %>% pull(output) %>% data.frame()%>% rename(` `= label)
+
+
+kable(dta_showme,format = "latex", align=c("l","c","c","c")) %>%
+  kable_styling(full_width = T,font_size=11)%>%
+  row_spec(0, bold=T) %>%
+   column_spec(1, width = "90em")
+
+```
+
+
+
+
+
+\newpage
+
+## Source List
+
+
+```{r pressure, echo=FALSE, message=FALSE, warning=FALSE}
+#source %>% filter(Estimate %in% params$Topics)%>%
+  kable(params$source,format = "latex") %>%
+  kable_styling(full_width = T) %>%
+   column_spec(2, width = "80em")%>% kable_styling(font_size = 10)
+```
+
+
